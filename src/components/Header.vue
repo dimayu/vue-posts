@@ -2,9 +2,9 @@
 	<header class="header">
 		<div class="wrapper">
 			<div class="header__items">
-				<div class="header__items__item header__items__left">
+				<router-link :to="{ name: 'home'}" class="header__items__item header__items__left">
 					<h1 class="header__title">Posts</h1>
-				</div>
+				</router-link>
 
 				<div class="header__items__item header__items__right">
 					<template v-if="!props.isAuthorized">
@@ -21,7 +21,16 @@
 					</template>
 
 					<template v-else>
-						<AppInput placeholder="Search posts by title"/>
+						<AppButton
+							@click="emit('openModal',); emit( 'setAddPost')"
+						>
+							Add Post
+						</AppButton>
+						<AppButton
+							@click="emit('setIsExit')"
+						>
+							Exit
+						</AppButton>
 						<img src="/public/user.png" alt="user" width="512" height="512">
 					</template>
 				</div>
@@ -31,7 +40,7 @@
 </template>
 
 <script setup>
-import { AppInput, AppButton } from "./";
+import { AppButton } from "./";
 
 const props = defineProps({
 	isAuthorized: {
@@ -43,7 +52,9 @@ const props = defineProps({
 const emit = defineEmits([
 	'openModal',
 	'setLogin',
-	'setRegister'
+	'setRegister',
+	'setAddPost',
+	'setIsExit'
 ]);
 
 </script>
@@ -58,12 +69,6 @@ const emit = defineEmits([
 	border-top: 1px solid $light---primary--500;
 	border-bottom: 1px solid $light---primary--500;
 
-	&__title {
-		font-size: 24px;
-		font-weight: 600;
-		color: $light---primary--600;
-	}
-
 	&__items {
 		display: flex;
 		align-items: center;
@@ -71,6 +76,22 @@ const emit = defineEmits([
 
 		.btn {
 			margin-left: 24px;
+		}
+
+		&__left {
+			text-decoration: none;
+
+			h1 {
+				font-size: 24px;
+				font-weight: 600;
+				color: $light---primary--600;
+			}
+
+			&:hover {
+				h1 {
+					color: $light---primary--400;
+				}
+			}
 		}
 
 		&__right {
@@ -84,8 +105,8 @@ const emit = defineEmits([
 			}
 
 			img {
-				width: 150px;
-				height: 150px;
+				width: 80px;
+				height: 80px;
 				border-radius: 50%;
 			}
 		}

@@ -49,11 +49,13 @@ import AppButton from "./AppButton.vue";
 
 	&__header {
 		position: relative;
+		min-width: 300px;
 		padding: 15px;
 		display: flex;
 		border-bottom: 1px solid #eeeeee;
 		color: #4AAE9B;
 		justify-content: space-between;
+		align-items: center;
 	}
 
 	&__body {
